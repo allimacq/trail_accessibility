@@ -9,6 +9,8 @@ class TrailAccessibility::CLI
     puts "(Distric of Columbia is also an option!)\n\n"
     puts "Please note that, unfortunately, the definition of accessible is not uniform. Read trail reviews and go to their official website for the most up-to-date information."
     Scraper.get_states
+    state = gets.strip
+    Scraper.get_requested(state)
   end
   
 end

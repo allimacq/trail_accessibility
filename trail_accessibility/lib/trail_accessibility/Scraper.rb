@@ -24,12 +24,14 @@ class Scraper
   end
   
   #this method gets the state trail page ready to scrape for the necessary info
-  def get_requested(state)
+  def self.get_requested(state)
     #using the find method to get the link to the user's requested state
     state_to_find = self.get_states.find {|h| h[:state] == "#{state}"}[:link]
     
     #this is the link that will be used with Nokogiri
-    state_link = 'https://traillink/com' + state_to_find
+    state_link = 'https://traillink.com' + state_to_find
+    
+    puts state_link
     
     #opening the requested state's page
     state_page = Nokogiri::HTML(open(state_link))
