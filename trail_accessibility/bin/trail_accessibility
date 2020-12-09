@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 
-require_relative '../lib/trail_accessibility'
+require_relative '../lib/environment'
 
 TrailAccessibility::CLI.new.call

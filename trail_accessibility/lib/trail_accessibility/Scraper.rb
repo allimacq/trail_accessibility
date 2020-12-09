@@ -1,7 +1,10 @@
+require 'nokogiri'
+require 'open-uri'
+
 class Scraper
   
   #this method gets all the states and a link to their page of accessibil trails. the return is an array of hashes.
-  def get_states
+  def self.get_states
     site = 'https://www.traillink.com/activity/wheelchair-accessible-trails/'
     page = Nokogiri::HTML(open(site))
     results = page.css("div.row.small-up-2.medium-up-3.large-up-4.block-grid div.column")
@@ -11,7 +14,7 @@ class Scraper
     
     results.each do |state|
       array << {
-        state: state.css("a").text.strip
+        state: state.css("a").text.strip,
         link: state.css("a").attribute("href").value
       }
     end

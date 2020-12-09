@@ -1,3 +1,5 @@
+require_relative "./Scraper"
+
 #using namespacing so we avoid overwriting anything.
 class TrailAccessibility::CLI
   
@@ -6,6 +8,7 @@ class TrailAccessibility::CLI
     puts "Which State would you like to explore for accessible trails?"
     puts "(Distric of Columbia is also an option!)\n\n"
     puts "Please note that, unfortunately, the definition of accessible is not uniform. Read trail reviews and go to their official website for the most up-to-date information."
+    Scraper.get_states
   end
   
 end
