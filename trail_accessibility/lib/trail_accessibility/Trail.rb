@@ -1,4 +1,4 @@
-require_relative "./trail_accessibility/Scraper"
+require_relative "./Scraper"
 
 class Trail
   
@@ -10,7 +10,7 @@ class Trail
     @@all << self
   end
   
-  def .all
+  def self.all
     @@all
   end
   

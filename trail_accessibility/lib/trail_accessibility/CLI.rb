@@ -11,6 +11,9 @@ class TrailAccessibility::CLI
     Scraper.get_states
     state = gets.strip
     Scraper.get_requested(state)
+    Scraper.make_state_trails(state)
+    puts "Here is a list of accessible trails in #{state}:"
+    Scraper.print_trails_for(state)
   end
   
 end
