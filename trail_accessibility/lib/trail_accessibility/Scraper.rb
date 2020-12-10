@@ -5,8 +5,6 @@ require_relative "./Trail"
 
 class Scraper
   
-  attr_accessor :name, :link, :info, :rating, :rating_link, :surface, :link
-  
   #this method gets all the states and a link to their page of accessibil trails. the return is an array of hashes.
   def self.get_states
     site = 'https://www.traillink.com/activity/wheelchair-accessible-trails/'
@@ -59,9 +57,9 @@ class Scraper
   
   #prints out info for all of the state's trails
   def self.print_trails_for(state)
-    self.make_state_trails(state)
+    puts "There are #{Trail.all.count} accessible trails in #{state}."
     Trail.all.collect do |trail|
-      puts "Name: #{trail.name}"
+      puts "Trail Name: #{trail.name}"
       puts "Rating: #{trail.rating}"
       puts "Length: #{trail.length}"
       puts "Surface Type(s): #{trail.surface}"

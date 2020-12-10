@@ -7,7 +7,6 @@ class Trail
   @@all = []
   
   def initialize
-    @name
     @@all << self
   end
   
@@ -15,7 +14,7 @@ class Trail
     @@all
   end
   
-  def clear_all
+  def self.clear_all
     @@all.clear
   end
   
