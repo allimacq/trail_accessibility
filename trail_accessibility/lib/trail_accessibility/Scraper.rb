@@ -5,6 +5,8 @@ require_relative "./Trail"
 
 class Scraper
   
+  @@states = []
+  
   #this method gets all the states and a link to their page of accessibil trails. the return is an array of hashes.
   def self.get_states
     site = 'https://www.traillink.com/activity/wheelchair-accessible-trails/'
@@ -15,6 +17,7 @@ class Scraper
     array = []
     
     results.each do |state|
+      @@states << state.css("a").text.strip
       array << {
         state: state.css("a").text.strip,
         link: state.css("a").attribute("href").value
@@ -24,6 +27,17 @@ class Scraper
     #the website has other categories beyone states so using the take method to get just the states and dc
     states_array = array.take(51)
   end
+  
+  def self.display_indexed_states
+    @@states.take(51).each_with_index do |state, index|
+      puts "#{index + 1}. #{state}"
+    end
+  end
+  
+  def self.states
+    @@states.take(51)
+  end
+      
   
   #this method gets the state trail page ready to scrape for the necessary info
   def self.get_requested(state)
