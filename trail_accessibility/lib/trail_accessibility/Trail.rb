@@ -6,7 +6,11 @@ class Trail
 
   @@all = []
   
-  def initialize
+  def initialize(name:, state:, length:, surface:)
+    @name = name
+    @state = state
+    @length = length
+    @surface = surface
     @@all << self
   end
   

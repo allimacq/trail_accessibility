@@ -43,15 +43,17 @@ class Scraper
   #will use this method to create Trails 
   def self.make_state_trails(state)
     self.get_requested(state).collect do |state_trails|
-      trail = Trail.new
-      trail.link = state_trails.css("td.info div a").attribute("href").value
-      trail.name = state_trails.css("td.info div a h3").text.strip
-      trail.info = state_trails.css("td.info div")[1].text
-      trail.state = state_trails.css("td.states").text.strip
-      trail.length = state_trails.css("td.length").text.strip
-      trail.surface = state_trails.css("td.surface").text.strip
-      trail.rating = state_trails.css("td.rating div a").text.strip
-      trail.rating_link = state_trails.css("td.rating div a").attribute("href").value
+      trail_instance = {name: "#{state_trails.css('td.info div a h3').text.strip}", state: "#{state_trails.css('td.states').text.strip}", surface: "#{state_trails.css('td.surface').text.strip}", length: "#{state_trails.css('td.length').text.strip}"}
+      trail = Trail.new(trail_instance)
+      p trail
+      #trail.link = state_trails.css("td.info div a").attribute("href").value
+      #trail.name = state_trails.css("td.info div a h3").text.strip
+      #trail.info = state_trails.css("td.info div")[1].text
+      #trail.state = state_trails.css("td.states").text.strip
+      #trail.length = state_trails.css("td.length").text.strip
+      #trail.surface = state_trails.css("td.surface").text.strip
+      #trail.rating = state_trails.css("td.rating div a").text.strip
+      #trail.rating_link = state_trails.css("td.rating div a").attribute("href").value
     end
   end
   
