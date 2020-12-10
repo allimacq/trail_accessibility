@@ -3,10 +3,11 @@ require_relative "./Scraper"
 class Trail
   
   attr_accessor :state, :name, :link, :info, :description, :length, :surface, :rating, :rating_link
-  
+
   @@all = []
   
   def initialize
+    @name
     @@all << self
   end
   
