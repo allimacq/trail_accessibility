@@ -11,7 +11,9 @@ class Trail
     @state = state
     @length = length
     @surface = surface
-    @@all << self
+    if @@all.include?(self) == false
+      @@all << self
+    end
   end
   
   def self.all
@@ -21,5 +23,6 @@ class Trail
   def self.clear_all
     @@all.clear
   end
+  
   
 end
