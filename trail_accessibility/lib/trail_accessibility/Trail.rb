@@ -24,5 +24,13 @@ class Trail
     @@all.clear
   end
   
+  def self.sort_by_length_for(state)
+    to_sort = Scraper.print_trails_for(state)
+    to_sort.sort_by {|trail| trail.length}
+  end
+    
+  #need to write method to sort trails by distance
+  #need to write method to only show trails with a particular type of surface
+  #need to write method to only show trails that have reviews
   
 end

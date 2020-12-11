@@ -18,6 +18,7 @@ class TrailAccessibility::CLI
     Scraper.make_state_trails(state)
     Scraper.print_trails_for(state)
     puts "If you would like to see more about a particular trail, please type in its number"
+    Trail.sort_by_length_for(state)
   end
   
 end

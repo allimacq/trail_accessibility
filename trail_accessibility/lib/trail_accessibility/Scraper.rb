@@ -83,6 +83,10 @@ class Scraper
     end
   end
   
+  #need to write methods to:
+  # -get link for a requested trail
+  # -print info for requested trail
+  
   
   
 end
