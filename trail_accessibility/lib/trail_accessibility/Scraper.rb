@@ -57,7 +57,7 @@ class Scraper
   #will use this method to create Trails 
   def self.make_state_trails(state)
     self.get_requested(state).collect do |state_trails|
-      trail_instance = {name: "#{state_trails.css('td.info div a h3').text.strip}", state: "#{state}", surface: "#{state_trails.css('td.surface').text.strip}", length: "#{state_trails.css('td.length').text.strip}"}
+      trail_instance = {name: "#{state_trails.css('td.info div a h3').text.strip}", state: "#{state}", surface: "#{state_trails.css('td.surface').text.strip}", distance: "#{state_trails.css('td.length').text.strip}"}
       trail = Trail.new(trail_instance)
       trail.link = state_trails.css("td.info div a").attribute("href").value
       #trail.name = state_trails.css("td.info div a h3").text.strip
@@ -74,9 +74,9 @@ class Scraper
   def self.print_trails_for(state)
     puts "There are #{Trail.all.count} accessible trails in #{state}."
     Trail.all.each_with_index do |trail, index|
-      puts "#{index}. #{trail.name}"
+      puts "#{index + 1}. #{trail.name}"
       puts "Rating: #{trail.rating}"
-      puts "Length: #{trail.length}"
+      puts "Distance: #{trail.distance}"
       puts "Surface Type(s): #{trail.surface}"
       puts "Brief Description: #{trail.info}\n"
       puts "--------------------------------------------------------------------------------\n"
@@ -86,6 +86,11 @@ class Scraper
   #need to write methods to:
   # -get link for a requested trail
   # -print info for requested trail
+  #def self.get_requested_state(trail)
+   # puts Trail.all.find {|trail| trail.name = '#{trail}'}[trail.link]
+    #Nokogiri::HTML(open(trail_link))
+    
+  #end
   
   
   
