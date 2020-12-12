@@ -71,9 +71,10 @@ class Scraper
   end
   
   #prints out info for all of the state's trails
-  def self.print_trails_for(state)
+  def self.print_trails_by_distance_for(state)
     puts "There are #{Trail.all.count} accessible trails in #{state}."
-    Trail.all.each_with_index do |trail, index|
+    sorted_by_distance = Trail.all.sort_by {|trail| trail.distance.to_i}
+    sorted_by_distance.each_with_index do |trail, index|
       puts "#{index + 1}. #{trail.name}"
       puts "Rating: #{trail.rating}"
       puts "Distance: #{trail.distance} mi"
