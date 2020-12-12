@@ -57,7 +57,7 @@ class Scraper
   #will use this method to create Trails 
   def self.make_state_trails(state)
     self.get_requested(state).collect do |state_trails|
-      trail_instance = {name: "#{state_trails.css('td.info div a h3').text.strip}", state: "#{state}", surface: "#{state_trails.css('td.surface').text.strip}", distance: "#{state_trails.css('td.length').text.strip}"}
+      trail_instance = {name: "#{state_trails.css('td.info div a h3').text.strip}", state: "#{state}", surface: "#{state_trails.css('td.surface').text.strip}", distance: "#{state_trails.css('td.length').text.strip.scan(/[^ mi]/).join}"}
       trail = Trail.new(trail_instance)
       trail.link = state_trails.css("td.info div a").attribute("href").value
       #trail.name = state_trails.css("td.info div a h3").text.strip
@@ -76,7 +76,7 @@ class Scraper
     Trail.all.each_with_index do |trail, index|
       puts "#{index + 1}. #{trail.name}"
       puts "Rating: #{trail.rating}"
-      puts "Distance: #{trail.distance}"
+      puts "Distance: #{trail.distance} mi"
       puts "Surface Type(s): #{trail.surface}"
       puts "Brief Description: #{trail.info}\n"
       puts "--------------------------------------------------------------------------------\n"
