@@ -28,16 +28,16 @@ class Scraper
     states_array = array.take(51)
   end
   
+   def self.states
+    @@states.take(51)
+  end
+  
   def self.display_indexed_states
-    @@states.take(51).each_with_index do |state, index|
+    self.states.each_with_index do |state, index|
       puts "#{index + 1}. #{state}"
     end
   end
   
-  def self.states
-    @@states.take(51)
-  end
-      
   
   #this method gets the state trail page ready to scrape for the necessary info
   def self.get_requested(state)
