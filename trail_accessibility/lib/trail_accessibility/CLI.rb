@@ -21,6 +21,7 @@ class TrailAccessibility::CLI
   end
   
   def self.display_state_trails
+      number = self.display_states
      #using the index of states to retrieve the proper state
       @state = Scraper.states[number - 1]
       puts "\nPlease note that, unfortunately, the definition of accessible is not uniform. Read trail reviews and go to their official website for the most up-to-date information.\n\n"
