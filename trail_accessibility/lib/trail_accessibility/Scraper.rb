@@ -1,6 +1,5 @@
 require 'nokogiri'
 require 'open-uri'
-require 'pry'
 
 require_relative "./Trail"
 
@@ -73,10 +72,10 @@ class Scraper
   
   #prints out info for all of the state's trails
   def self.print_trails_by_distance_for(state)
-    puts "There are #{Trail.all.count} accessible trails in #{state}."
-    binding.pry
-    sorted_by_distance = Trail.all.sort_by {|trail| trail.distance.to_i}
-    sorted_by_distance.each_with_index do |trail, index|
+    puts "There are #{Trail.trails_in(state).count} accessible trails in #{state}."
+    #sorted_by_distance = Trail.all.sort_by {|trail| trail.distance.to_i}
+    #sorted_by_distance.each_with_index do |trail, index|
+    Trail.by_distance_in(state).each_with_index do |trail, index|
       puts "#{index + 1}. #{trail.name}"
       puts trail.print_trail_info
     end

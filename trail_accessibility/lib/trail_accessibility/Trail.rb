@@ -42,21 +42,13 @@ class Trail
     end
   end
   
-  def self.count_trails_for(state)
-    count = 0
-    if @@all.include?(state)
-      count += 1
-    end
+  def self.trails_in(state)
+    @@all.select { |trail| trail.state == state}
   end
   
   def self.by_distance_in(state)
-    to_sort = []
-    @@all.each do |trail|
-      if trail.state == requested_state
-        to_sort << self
-      end
-    end
-   sorted_by_distance = to_sort.sort_by {|trail| trail.distance.to_i}
+    self.trails_in(state).sort_by { |trail| trail.distance.to_i}
+   #sorted_by_distance = to_sort.sort_by {|trail| trail.distance.to_i}
  end
    
       
