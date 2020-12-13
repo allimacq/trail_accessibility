@@ -37,6 +37,7 @@ class TrailAccessibility::CLI
   def call
     puts "Welcome!"
     Scraper.get_states
+    #initializing variable
     final_input = '0'
     until final_input == 'Exit'
       TrailAccessibility::CLI.display_states
@@ -45,10 +46,12 @@ class TrailAccessibility::CLI
       puts final_input == 'Trail'
       if final_input == 'Trail'
         TrailAccessibility::CLI.display_specifics
+        final_input = gets.strip
       elsif final_input.to_i == 'State'
-        Trail.all.clear_all
+        Trail.all.clear
         TrailAccessibility::CLI.display_states
         TrailAccessibility::CLI.display_specifics
+        final_input = gets.strip
       end
     end
   end

@@ -1,5 +1,6 @@
 require 'nokogiri'
 require 'open-uri'
+require 'pry'
 
 require_relative "./Trail"
 
@@ -73,6 +74,7 @@ class Scraper
   #prints out info for all of the state's trails
   def self.print_trails_by_distance_for(state)
     puts "There are #{Trail.all.count} accessible trails in #{state}."
+    binding.pry
     sorted_by_distance = Trail.all.sort_by {|trail| trail.distance.to_i}
     sorted_by_distance.each_with_index do |trail, index|
       puts "#{index + 1}. #{trail.name}"
@@ -83,10 +85,17 @@ class Scraper
   #need to write methods to:
   # -get link for a requested trail
   def self.get_requested_info_for(trail)
-    requested_trail_link = 'https://www.traillink.com' + trail.link
-    
+    if trail.name != "Great American Rail-Trail" 
+      requested_trail_link = 'https://www.traillink.com' + trail.link
+    else
+      #for some reason, the link for the great american rail-trail doesn't follow the same pattern as the others
+      trail_link = '/great-american-rail-trail/'
+      
+     requested_trail_link = 'http://www.traillink.com' + trail_link
+    end
     requested_state_trail = Nokogiri::HTML(open(requested_trail_link))
   end
+  
   
   def self.print_requested(trail)
     puts self.get_requested_info_for(trail).css('main.medium-8.columns').text.strip

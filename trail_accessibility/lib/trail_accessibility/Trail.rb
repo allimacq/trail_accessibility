@@ -20,7 +20,7 @@ class Trail
     @@all
   end
   
-  def self.clear_all
+  def self.clear
     @@all.clear
   end
   
@@ -41,5 +41,24 @@ class Trail
       end
     end
   end
+  
+  def self.count_trails_for(state)
+    count = 0
+    if @@all.include?(state)
+      count += 1
+    end
+  end
+  
+  def self.by_distance_in(state)
+    to_sort = []
+    @@all.each do |trail|
+      if trail.state == requested_state
+        to_sort << self
+      end
+    end
+   sorted_by_distance = to_sort.sort_by {|trail| trail.distance.to_i}
+ end
+   
+      
   
 end
