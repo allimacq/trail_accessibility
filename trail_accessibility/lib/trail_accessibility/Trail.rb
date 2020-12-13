@@ -24,10 +24,22 @@ class Trail
     @@all.clear
   end
   
-    
-  def sort_by_surface(type)
+  def print_trail_info
+    puts "Rating: #{self.rating}"
+    puts "Distance: #{self.distance} mi"
+    puts "Surface Type(s): #{self.surface}"
+    puts "Brief Description: #{self.info}\n"
+    puts "--------------------------------------------------------------------------------\n"
   end
-  #need to write method to only show trails with a particular type of surface
-  #need to write method to only show trails that have reviews
+  
+    
+  def self.view_only_asphalt_trails
+    Trail.all.each_with_index do |trail, index|
+      if trail.surface == 'Asphalt'
+        puts "#{index}. #{trail.name}"
+        puts trail.print_trail_info
+      end
+    end
+  end
   
 end

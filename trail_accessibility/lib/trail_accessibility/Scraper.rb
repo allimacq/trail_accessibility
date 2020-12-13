@@ -76,23 +76,20 @@ class Scraper
     sorted_by_distance = Trail.all.sort_by {|trail| trail.distance.to_i}
     sorted_by_distance.each_with_index do |trail, index|
       puts "#{index + 1}. #{trail.name}"
-      puts "Rating: #{trail.rating}"
-      puts "Distance: #{trail.distance} mi"
-      puts "Surface Type(s): #{trail.surface}"
-      puts "Brief Description: #{trail.info}\n"
-      puts "--------------------------------------------------------------------------------\n"
+      puts trail.print_trail_info
     end
   end
   
   #need to write methods to:
   # -get link for a requested trail
-  # -print info for requested trail
-  #def self.get_requested_state(trail)
-   # puts Trail.all.find {|trail| trail.name = '#{trail}'}[trail.link]
-    #Nokogiri::HTML(open(trail_link))
+  def self.get_requested_info_for(trail)
+    requested_trail_link = 'https://www.traillink.com' + trail.link
     
-  #end
+    requested_state_trail = Nokogiri::HTML(open(requested_trail_link))
+  end
   
-  
+  def self.print_requested(trail)
+    puts self.get_requested_info_for(trail).css('main.medium-8.columns').text.strip
+  end
   
 end
