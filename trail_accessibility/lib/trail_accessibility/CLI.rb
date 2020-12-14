@@ -6,6 +6,18 @@ class TrailAccessibility::CLI
   
   attr_accessor :state
   
+  def call
+    TrailAccessibility::CLI.welcome_message
+    Scraper.get_states
+    TrailAccessibility::CLI.display_options
+    TrailAccessibility::CLI.user_choose_state
+    TrailAccessibility::CLI.make_requested_state
+    TrailAccessibility::CLI.display_trails_for_state
+    if TrailAccessibility::CLI.get_trail_number > 0
+      TrailAccessibility::CLI.view_requested_trail
+    end
+  end
+  
   def self.welcome_message
     puts "Welcome!"
     puts "\nPlease note that, unfortunately, the definition of accessible is not uniform. Read trail reviews and go to their official website for the most up-to-date information.\n\n"
@@ -45,57 +57,35 @@ class TrailAccessibility::CLI
     TrailAccessibility::CLI.display_asphalt?
   end
   
-  def self.verification_of(input)
-    until input >= 0 && input <= Trail.trails_in(@state).count
-      puts "Please enter a number between 1 and #{Trail.trails_in(@state).count}"
-      input = gets.strip.to_i
-    end
-    #goes to list of states if not a valid integer input
-    if input.class != Integer
-      input = 0
-    end
-    input
-  end
   
   def self.get_trail_number
     puts "If you would like to see more about a particular trail, please type in its corresponding number or 0 to view State list."
     input = gets.strip.to_i
-    TrailAccessibility::CLI.verification_of(input)
+    until input >= 0 && input <= Trail.trails_in(@state).count
+      puts "Please enter 0, 1, or 2: "
+      input = gets.strip.to_i
+    end
+    input
   end
   
-   def self.view_requested_trail
-    if self.get_trail_number > 0
-      trail = Scraper.print_trails_by_distance_for(@state)[self.get_trail_number - 1]
-      Scraper.get_requested_info_for(trail)
-      Scraper.print_requested(trail)
-      puts "\n\nType 1 if you would you like to view a different trail in #{@state} or type 2 if would you like to explore another State. Otherwise, type 0 to exit."
-    end
-  end
-  
-  def self.input_at_end
-    number = gets.strip.to_i
-    if number.class(Integer) == false
-      number = 0
-    end
-    number
+  def self.view_requested_trail
+    trail = Scraper.print_trails_by_distance_for(@state)[self.get_trail_number - 1]
+    Scraper.get_requested_info_for(trail)
+    Scraper.print_requested(trail)
   end
     
-  
-  
-  def call
-    number = 1
-    TrailAccessibility::CLI.welcome_message
-    Scraper.get_states
-    #until number == 0
-      TrailAccessibility::CLI.display_options
-      TrailAccessibility::CLI.user_choose_state
-      TrailAccessibility::CLI.make_requested_state
-      TrailAccessibility::CLI.display_trails_for_state
-      number = TrailAccessibility::CLI.get_trail_number
-      if number > 0
-        TrailAccessibility::CLI.view_requested_trail
-       #number = TrailAccessibility::CLI.input_at_end
-      end
+  def self.ask_user
+    puts "\n\nType 1 if you would you like to view a different trail in #{@state} or type 2 if would you like to explore another State. Otherwise, type 0 to exit."
+    input = gets.strip.to_i
+    until input >= 0 && input <= 2
+      puts "Please enter 0, 1, or 2: "
+      input = gets.strip.to_i
+    end
+    input
   end
+  
+ 
+      
+    
   
 end
