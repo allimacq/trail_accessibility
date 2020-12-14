@@ -85,8 +85,8 @@ class TrailAccessibility::CLI
   def call
     number = 1
     TrailAccessibility::CLI.welcome_message
+    Scraper.get_states
     #until number == 0
-      Scraper.get_states
       TrailAccessibility::CLI.display_options
       TrailAccessibility::CLI.user_choose_state
       TrailAccessibility::CLI.make_requested_state
@@ -95,9 +95,7 @@ class TrailAccessibility::CLI
       if number > 0
         TrailAccessibility::CLI.view_requested_trail
        #number = TrailAccessibility::CLI.input_at_end
-       number = 0
       end
-    #end
   end
   
 end
