@@ -25,7 +25,7 @@ class TrailAccessibility::CLI
     trail = TrailAccessibility::CLI.get_trail_number_for(state)
     if trail <= Trail.trails_in(state).count
         TrailAccessibility::CLI.view_requested_trail(trail, state)
-        answer = TrailAccessibility::CLI.ask_user
+        answer = TrailAccessibility::CLI.ask_user(state)
         if answer == 2
           self.display_get_view_trail_in(state)
         end
@@ -104,8 +104,8 @@ class TrailAccessibility::CLI
   
   
   #this method is used at the end to see if the user wants to view a different trail in the current selected state, if they want to go back up to the state display or if they want to quit.
-  def self.ask_user
-    puts "\n\nType 1 if you would you like to explore another state or type 2 to view a different trail in #{@state}. Otherwise, type 0 to exit."
+  def self.ask_user(state)
+    puts "\n\nType 1 if you would you like to explore another state or type 2 to view a different trail in #{state}. Otherwise, type 0 to exit."
     input = gets.strip.to_i
     until input >= 0 && input <= 2
       puts "Please enter 0, 1, or 2: "

@@ -5,7 +5,7 @@ require_relative "./Trail"
 
 class Scraper
   
-  @@states = []
+  @@state_names = []
   
   #this method gets all the states and a link to their page of accessibile trails. the return is an array of hashes.
   def self.get_states
@@ -17,7 +17,7 @@ class Scraper
     array = []
     
     results.each do |state|
-      @@states << state.css("a").text.strip
+      @@state_names << state.css("a").text.strip
       array << {
         state: state.css("a").text.strip,
         link: state.css("a").attribute("href").value
@@ -30,7 +30,7 @@ class Scraper
   
   #this method is an array that contains only the state names.
    def self.states
-    @@states.take(51)
+    @@state_names.take(51)
   end
   
   #this is the method that displays indexed states for the user to choose from

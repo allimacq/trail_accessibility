@@ -49,7 +49,6 @@ class Trail
   
   def self.by_distance_in(state)
     self.trails_in(state).sort_by { |trail| trail.distance.to_i}
-   #sorted_by_distance = to_sort.sort_by {|trail| trail.distance.to_i}
  end
    
       
