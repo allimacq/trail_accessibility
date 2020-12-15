@@ -5,11 +5,12 @@ require_relative "./Trail"
 class TrailAccessibility::CLI
   
   def call
-    answer = false
+    #initalizing the variable used in the until loop
+    answer = 1
+    TrailAccessibility::CLI.welcome_message
+    Scraper.get_states
     until answer == 0
-      TrailAccessibility::CLI.welcome_message
-      Scraper.get_states
-      TrailAccessibility::CLI.display_options
+      TrailAccessibility::CLI.display_states
       state = TrailAccessibility::CLI.user_choose_state
       TrailAccessibility::CLI.make_requested(state)
       TrailAccessibility::CLI.display_trails_for(state)
@@ -17,7 +18,6 @@ class TrailAccessibility::CLI
       if trail <= Trail.trails_in(state).count
         TrailAccessibility::CLI.view_requested_trail(trail, state)
         answer = TrailAccessibility::CLI.ask_user
-        if answer
       end
       answer
     end
@@ -29,7 +29,7 @@ class TrailAccessibility::CLI
   end
     
   
-  def self.display_options
+  def self.display_states
    Scraper.display_indexed_states
   end
   

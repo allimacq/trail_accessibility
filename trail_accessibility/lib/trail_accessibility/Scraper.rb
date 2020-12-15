@@ -7,7 +7,7 @@ class Scraper
   
   @@states = []
   
-  #this method gets all the states and a link to their page of accessibil trails. the return is an array of hashes.
+  #this method gets all the states and a link to their page of accessibile trails. the return is an array of hashes.
   def self.get_states
     site = 'https://www.traillink.com/activity/wheelchair-accessible-trails/'
     page = Nokogiri::HTML(open(site))
@@ -28,10 +28,12 @@ class Scraper
     states_array = array.take(51)
   end
   
+  #this method is an array that contains only the state names.
    def self.states
     @@states.take(51)
   end
   
+  #this is the method that displays indexed states for the user to choose from
   def self.display_indexed_states
     self.states.each_with_index do |state, index|
       puts "#{index + 1}. #{state}"
@@ -39,7 +41,7 @@ class Scraper
   end
   
   
-  #this method gets the state trail page ready to scrape for the necessary info
+  #this method gets the user requested state trail page ready to scrape for the necessary info
   def self.get_requested(state)
     #using the find method to get the link to the user's requested state
     state_to_find = self.get_states.find {|h| h[:state] == "#{state}"}[:link]
@@ -54,17 +56,13 @@ class Scraper
     state_results = state_page.css('table.search-result-table tbody tr.search-result-card.hide-for-small-only')
   end
   
-  #will use this method to create Trails 
+  #will use this method to create Trails and assign trail attributes
   def self.make_state_trails(state)
     self.get_requested(state).collect do |state_trails|
       trail_instance = {name: "#{state_trails.css('td.info div a h3').text.strip}", state: "#{state}", surface: "#{state_trails.css('td.surface').text.strip}", distance: "#{state_trails.css('td.length').text.strip.scan(/[^ mi]/).join}"}
       trail = Trail.new(trail_instance)
       trail.link = state_trails.css("td.info div a").attribute("href").value
-      #trail.name = state_trails.css("td.info div a h3").text.strip
       trail.info = state_trails.css("td.info div")[1].text
-      #trail.state = state_trails.css("td.states").text.strip
-      #trail.length = state_trails.css("td.length").text.strip
-      #trail.surface = state_trails.css("td.surface").text.strip
       trail.rating = state_trails.css("td.rating div a").text.strip
       trail.rating_link = state_trails.css("td.rating div a").attribute("href").value
     end
@@ -79,9 +77,9 @@ class Scraper
     end
   end
   
-  #need to write methods to:
-  # -get link for a requested trail
+  #this method gets the requested trail's link and ready to scrape for the next method.
   def self.get_requested_info_for(trail)
+    #using this if statement because the great american rail-trail had a different url then the rest.
     if trail.name != "Great American Rail-Trail" 
       requested_trail_link = 'https://www.traillink.com' + trail.link
     else
@@ -93,7 +91,7 @@ class Scraper
     requested_state_trail = Nokogiri::HTML(open(requested_trail_link))
   end
   
-  
+  #this method prints even more information about the user requested trail.
   def self.print_requested(trail)
     puts self.get_requested_info_for(trail).css('main.medium-8.columns').text.strip
   end
