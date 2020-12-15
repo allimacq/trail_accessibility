@@ -4,7 +4,6 @@ require_relative "./Trail"
 #using namespacing so we avoid overwriting anything.
 class TrailAccessibility::CLI
   
-  
   def call
     answer = false
     until answer == 0
@@ -14,10 +13,11 @@ class TrailAccessibility::CLI
       state = TrailAccessibility::CLI.user_choose_state
       TrailAccessibility::CLI.make_requested(state)
       TrailAccessibility::CLI.display_trails_for(state)
-      ### if I take TrailAccessibility::CLI.get_trail_number_for(state) out of the if statement, it only prints once. Otherwise, it loops back to TrailAccessibility::CLI.display_trails_for(state)
-      if TrailAccessibility::CLI.get_trail_number_for(state) <= Trail.trails_in(state).count
-        TrailAccessibility::CLI.view_requested_trail_in(state)
+      trail = TrailAccessibility::CLI.get_trail_number_for(state)
+      if trail <= Trail.trails_in(state).count
+        TrailAccessibility::CLI.view_requested_trail(trail, state)
         answer = TrailAccessibility::CLI.ask_user
+        if answer
       end
       answer
     end
@@ -73,10 +73,11 @@ class TrailAccessibility::CLI
     input
   end
   
-  def self.view_requested_trail_in(state)
-    trail = Scraper.print_trails_by_distance_for(state)[self.get_trail_number_for(state) - 1]
-    Scraper.get_requested_info_for(trail)
-    Scraper.print_requested(trail)
+  def self.view_requested_trail(trail, state)
+    trail_to_view = Trail.by_distance_in(state)[trail - 1]
+    Scraper.get_requested_info_for(trail_to_view)
+    puts "\n\n#{trail_to_view.name}\n"
+    Scraper.print_requested(trail_to_view)
   end
     
   def self.ask_user
