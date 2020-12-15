@@ -16,6 +16,7 @@ class TrailAccessibility::CLI
       TrailAccessibility::CLI.display_trails_for(state)
       if TrailAccessibility::CLI.get_trail_number_for(state) <= Trail.trails_in(state).count
         TrailAccessibility::CLI.view_requested_trail_in(state)
+        puts "test"
         answer = TrailAccessibility::CLI.ask_user
       end
       answer
@@ -63,7 +64,7 @@ class TrailAccessibility::CLI
   
   
   def self.get_trail_number_for(state)
-    puts "If you would like to see more about a particular trail, please type in its corresponding number or type #{Trail.trails_in(state).count + 1} to view State list."
+    puts "If you would like to see more about a particular trail, please type in its corresponding number or enter any number above #{Trail.trails_in(state).count} to view State list."
     input = gets.strip.to_i
     until input > 0 && input <= Trail.trails_in(state).count + 1
       puts "Please enter a valid input: "
@@ -87,9 +88,5 @@ class TrailAccessibility::CLI
     end
     input
   end
-  
- 
-      
-    
   
 end
