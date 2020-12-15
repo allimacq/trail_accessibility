@@ -14,9 +14,9 @@ class TrailAccessibility::CLI
       state = TrailAccessibility::CLI.user_choose_state
       TrailAccessibility::CLI.make_requested(state)
       TrailAccessibility::CLI.display_trails_for(state)
+      ### if I take TrailAccessibility::CLI.get_trail_number_for(state) out of the if statement, it only prints once. Otherwise, it loops back to TrailAccessibility::CLI.display_trails_for(state)
       if TrailAccessibility::CLI.get_trail_number_for(state) <= Trail.trails_in(state).count
         TrailAccessibility::CLI.view_requested_trail_in(state)
-        puts "test"
         answer = TrailAccessibility::CLI.ask_user
       end
       answer
