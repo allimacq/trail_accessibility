@@ -20,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Start the program to choose from 51 indexed States (and DC!) to find accessible trails. Once you choose a location, indexed trails for the State are displayed by trail distance (shortest to longest). You will then be given the option to view trails made of asphalt. At this point, you can select a particular trail to view more information about it, or you can choose to go back up to the 51 orginal options to start again.
 
 ## Development
 
