@@ -25,6 +25,7 @@ class Trail
     @@all.clear
   end
   
+  #this method display the initial information about the selected State's trails
   def print_trail_info
     puts "Rating: #{self.rating}"
     puts "Distance: #{self.distance} mi"
@@ -33,9 +34,10 @@ class Trail
     puts "--------------------------------------------------------------------------------\n"
   end
   
-    
-  def self.view_only_asphalt_trails
-    Trail.all.each_with_index do |trail, index|
+   
+  #will only display trails that have asphalt as their surface attribute 
+  def self.view_only_asphalt_trails_in(state)
+    Trail.by_distance_in(state).each_with_index do |trail, index|
       if trail.surface == 'Asphalt'
         puts "#{index}. #{trail.name}"
         puts trail.print_trail_info
@@ -43,12 +45,14 @@ class Trail
     end
   end
   
+  #this method will give us all of the trails in a specific state
   def self.trails_in(state)
     @@all.select { |trail| trail.state == state}
   end
   
+  #this method sorts trails in a state by distance
   def self.by_distance_in(state)
-    self.trails_in(state).sort_by { |trail| trail.distance.to_i}
+    self.trails_in(state).sort_by { |trail| trail.distance.to_f}
  end
    
       

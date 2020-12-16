@@ -67,18 +67,18 @@ class TrailAccessibility::CLI
   
   
   #this method will display trails in a selected state that have asphalt if the user makes that selection
-  def self.display_asphalt?
+  def self.display_asphalt?(state)
     puts "Would you like to only see trails made of Asphalt? (Y/N)"
     answer = gets.strip.capitalize
     if answer == 'Y'
-      Trail.view_only_asphalt_trails
+      Trail.view_only_asphalt_trails_in(state)
     end
   end
   
   #this method displays trails in the selected state and calls on the asphalt method above
   def self.display_trails_for(state)
     Scraper.print_trails_by_distance_for(state)
-    TrailAccessibility::CLI.display_asphalt?
+    TrailAccessibility::CLI.display_asphalt?(state)
   end
   
   
