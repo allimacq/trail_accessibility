@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{spec}
   spec.description   = %q{summary}
-  spec.homepage      = "http://www.testing.com"
+  spec.homepage      = "https://github.com/allimacq/trail_accessibility"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
     spec.metadata["allowed_push_host"] = "http://www.testing.com"
 
     spec.metadata["homepage_uri"] = spec.homepage
-    spec.metadata["source_code_uri"] = "http://www.testing.com"
+    spec.metadata["source_code_uri"] = "https://github.com/allimacq/trail_accessibility"
     spec.metadata["changelog_uri"] = "http://www.testing.com"
   else
     raise "RubyGems 2.0 or newer is required to protect against " \
